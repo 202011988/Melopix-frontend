@@ -1,8 +1,8 @@
 import React from 'react';
 
-const HahmletHeading = ({ children }) => {
+const HahmletHeading = ({ children, className }) => {
   return (
-    <h1 style={{ fontFamily: "'Hahmlet', serif", fontWeight: 400, textAlign: 'left'}}>
+    <h1 className={`font-serif font-normal text-left text-4xl ${className}`}>
       {children}
     </h1>
   );

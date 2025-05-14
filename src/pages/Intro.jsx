@@ -8,16 +8,16 @@ import SDGothicBody from "../components/SDGothicBody";
 const Intro = () => {
 
     return (
-        <Grid style={{ padding: '2rem 5rem' }}>
+        <Grid className={'px-32 pt-20 justify-between'}>
             <Col>
             <Row>
-                <HahmletHeading>
+                <HahmletHeading className={'mb-8'}>
                     저희는 잃어버린 기억을 들려주는<br />
                     특별한 사진관입니다.
                 </HahmletHeading>
             </Row>
             <Row>
-                <SDGothicBody>
+                <SDGothicBody className={'mb-5'}>
                     당신의 소중한 사진 속 이야기를 AI가 음악으로 만들어 드립니다.<br />
                     사진이 담고 있는 감정과 순간을 노래로 표현하며 새로운 추억을<br />
                     선율로 선사합니다.<br />
@@ -31,11 +31,12 @@ const Intro = () => {
                 </SDGothicBody>
             </Row>
             </Col>
-            <Col>
-                <PhotoFrame
-                    imageSrc={require("../assets/logo.png")}
+            <Col className="items-end">
+                <PhotoFrame 
+                    imageSrc={require("../assets/intro_photo.jpg")} 
+                    alt="Example Image" 
+                    className="w-[500px] h-[400px]"
                 />
-
             </Col>
         </Grid>
     );

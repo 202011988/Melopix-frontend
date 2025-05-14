@@ -1,10 +1,8 @@
 import React from 'react';
 
-const SDGothicBody = ({ children }) => {
+const SDGothicBody = ({ children, className}) => {
   return (
-    <p
-      style={{ fontFamily: 'Apple SD Gothic Neo', fontWeight: 400, textAlign: 'left' }}
-    >
+    <p className={`font-sans font-normal text-left ${className}`}>
       {children}
     </p>
   );
