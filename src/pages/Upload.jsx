@@ -1,23 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import uploadImage from '../assets/upload_image.png';
 import UploadButton from '../components/UploadButton';
 
 const Upload = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
   const inputRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    // 숨겨둔 input 클릭 유도
     inputRef.current?.click();
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-      // 필요 시 여기서 파일을 업로드하거나 미리보기 가능
-      console.log('선택된 파일:', file);
-    }
+    if (!file) return;
+
+    // 파일을 다음 페이지로 넘김
+    navigate('/result', { state: { file } });
   };
 
   return (
@@ -28,8 +27,6 @@ const Upload = () => {
         backgroundImage: `url(${uploadImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

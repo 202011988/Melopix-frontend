@@ -9,7 +9,7 @@ function Header() {
   const tabs = [
     { label: '소개글', path: '/intro' },
     { label: '사용법', path: '/manual' },
-    { label: '나만의 사진', path: '/my' },
+    { label: '갤러리', path: '/gallery' },
   ];
 
   const containerStyle = {

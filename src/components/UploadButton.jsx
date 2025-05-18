@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from './GridLayout/Grid';
 import Col from './GridLayout/Col';
 
 const UploadButton = ({ onClick, className = '' }) => {

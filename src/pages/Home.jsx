@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FrameSlideshow from "../components/FrameSlideshow";
 import Col from "../components/GridLayout/Col";
 import Grid from "../components/GridLayout/Grid";
@@ -42,12 +42,12 @@ const Home = () => {
       <Grid className="px-32 pt-20 relative">
         <Col className="flex-1">
           <Row>
-            <HahmletHeading className="mb-8">
+            <HahmletHeading className="z-20 mb-8">
               당신의 추억을 다시 듣고 싶으신가요?
             </HahmletHeading>
           </Row>
           <Row>
-            <SDGothicBody className="mb-5">
+            <SDGothicBody className="z-20 mb-5">
               잊어버린 당신의 사진첩 속 기억 한 조각을 가져오세요<br />
               눈을 감고 시간을 되감아봅시다.<br />
             </SDGothicBody>

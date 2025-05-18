@@ -1,5 +1,4 @@
 import Col from "../components/GridLayout/Col";
-import Grid from "../components/GridLayout/Grid";
 import Row from "../components/GridLayout/Row";
 import FilmTextFrame from "../components/TextFrame";
 

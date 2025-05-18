@@ -5,11 +5,11 @@ import background from './assets/background.jpg';
 import Home from './pages/Home';
 import Intro from './pages/Intro';
 import Manual from './pages/Manual';
-import My from './pages/My';
+import Gallery from './pages/Gallery';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Upload from './pages/Upload';
-import Loading from './pages/Loading';
+import Loading from './components/Loading';
 import Result from './pages/Result';
 import Header from './components/Header';
 
@@ -37,7 +37,7 @@ function App() {
           <Route path="/intro" element={<Intro />} />     {/*소개글*/}
           <Route path="/manual" element={<Manual />} />    {/*사용 방법*/}
 
-          <Route path="/my" element={<My />} />        {/*나만의 사진*/}
+          <Route path="/gallery" element={<Gallery />} />        {/*나만의 사진*/}
           <Route path="/login" element={<Login />} />     {/*로그인*/}
           <Route path="/signup" element={<Signup />} />    {/*회원가입*/}
 
