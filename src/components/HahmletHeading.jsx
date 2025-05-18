@@ -2,7 +2,7 @@ import React from 'react';
 
 const HahmletHeading = ({ children, className }) => {
   return (
-    <h1 className={`font-serif font-normal text-left text-4xl leading-relaxed ${className}`}>
+    <h1 className={`font-serif font-bold text-left text-4xl leading-relaxed ${className}`}>
       {children}
     </h1>
   );
