@@ -61,7 +61,7 @@ const Home = () => {
         </Col>
       </Grid>
 
-      <div className="mt-20 relative z-0">
+      <div className="absolute bottom-10  w-full z-0">
         <FrameSlideshow images={imageSources} />
       </div>
     </div>
