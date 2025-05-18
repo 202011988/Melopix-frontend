@@ -1,11 +1,16 @@
+import { Navigate, useNavigate } from "react-router-dom";
 import FrameSlideshow from "../components/FrameSlideshow";
 import Col from "../components/GridLayout/Col";
 import Grid from "../components/GridLayout/Grid";
 import Row from "../components/GridLayout/Row";
 import HahmletHeading from "../components/HahmletHeading";
 import SDGothicBody from "../components/SDGothicBody";
+import StartButton from "../components/StartButton";
 
 const Home = () => {
+
+  const navigate = useNavigate();
+
   const imageSources = [
     require('../assets/SampleImages/Image1.jpg'),
     require('../assets/SampleImages/Image2.jpg'),
@@ -18,21 +23,23 @@ const Home = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden">
-      {/* 왼쪽 그라데이션 (넓고 자연스럽게) */}
+    <div
+      className="relative overflow-hidden"
+      style={{
+        height: `calc(100vh - ${116}px)`,
+      }}
+      >
+      {/* 좌측 그라데이션 */}
       <div className="absolute left-0 top-0 h-full w-[65%] z-10 pointer-events-none bg-gradient-to-r from-black/40 to-transparent" />
 
-
-      {/* 오른쪽 그라데이션 */}
+      {/* 우측 그라데이션 */}
       <div className="absolute right-0 top-0 h-full w-[25%] z-10 pointer-events-none bg-gradient-to-l from-black/40 to-transparent" />
 
-      {/* 위쪽 블러 그라데이션 */}
+      {/* 상단 그라데이션 */}
       <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-white to-transparent" />
   
-      {/* 아래쪽 블러 그라데이션
-      <div className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-white to-transparent" /> */}
 
-      <Grid className="px-32 pt-20 relative z-0">
+      <Grid className="px-32 pt-20 relative">
         <Col className="flex-1">
           <Row>
             <HahmletHeading className="mb-8">
@@ -45,10 +52,16 @@ const Home = () => {
               눈을 감고 시간을 되감아봅시다.<br />
             </SDGothicBody>
           </Row>
+          <Row>
+            <StartButton 
+              className="z-20 relative mt-10"
+              onClick={() => navigate('./upload')}
+            />
+          </Row>
         </Col>
       </Grid>
 
-      <div className="mt-32 relative z-0">
+      <div className="mt-20 relative z-0">
         <FrameSlideshow images={imageSources} />
       </div>
     </div>
