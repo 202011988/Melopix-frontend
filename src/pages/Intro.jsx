@@ -31,7 +31,7 @@ const Intro = () => {
                 </SDGothicBody>
             </Row>
             </Col>
-            <Col className="flex items-end justify-end">
+            <Col className="flex items-end">
                 <FilmFrame 
                     imageSrc={require("../assets/intro_image.jpg")} 
                     alt="intro_image"

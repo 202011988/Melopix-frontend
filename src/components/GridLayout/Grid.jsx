@@ -1,8 +1,15 @@
-import React from 'react';
-
-const Grid = ({ children, className = '', style }) => {
+const Grid = ({
+  children,
+  className = '',
+  columns = 2,
+  gap = 4,
+  style,
+}) => {
   return (
-    <div className={`grid ${className}`}  style={style}>
+    <div
+      className={`grid grid-cols-${columns} gap-${gap} ${className}`}
+      style={style}
+    >
       {children}
     </div>
   );
