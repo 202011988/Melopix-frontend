@@ -2,7 +2,7 @@ import React from "react";
 
 export default function PhotoFrame({ imageSrc, alt, className = "" }) {
   const containerClass =
-    "relative w-fit p-4 pt-6 bg-white shadow-xl border border-gray-200 " + className;
+    "relative w-[500px] h-[400px] p-6 pt-6 bg-white shadow-xl border border-gray-200 " + className;
 
   return (
     <div className={containerClass}>

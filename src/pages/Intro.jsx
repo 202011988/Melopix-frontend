@@ -2,14 +2,14 @@ import Col from "../components/GridLayout/Col";
 import Grid from "../components/GridLayout/Grid";
 import Row from "../components/GridLayout/Row";
 import HahmletHeading from "../components/HahmletHeading";
-import PhotoFrame from "../components/PhotoFrame";
+import FilmFrame from "../components/PhotoFrame";
 import SDGothicBody from "../components/SDGothicBody";
 
 const Intro = () => {
 
     return (
-        <Grid className={'px-32 pt-20 justify-between'}>
-            <Col>
+        <Grid className={'px-32 pt-20'}>
+            <Col className={'flex-1'}>
             <Row>
                 <HahmletHeading className={'mb-8'}>
                     저희는 잃어버린 기억을 들려주는<br />
@@ -31,11 +31,10 @@ const Intro = () => {
                 </SDGothicBody>
             </Row>
             </Col>
-            <Col className="items-end">
-                <PhotoFrame 
-                    imageSrc={require("../assets/intro_photo.jpg")} 
-                    alt="Example Image" 
-                    className="w-[500px] h-[400px]"
+            <Col className="flex items-end justify-end">
+                <FilmFrame 
+                    imageSrc={require("../assets/intro_image.jpg")} 
+                    alt="intro_image"
                 />
             </Col>
         </Grid>
