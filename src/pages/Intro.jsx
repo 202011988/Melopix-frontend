@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import Col from "../components/GridLayout/Col";
 import Grid from "../components/GridLayout/Grid";
 import Row from "../components/GridLayout/Row";
@@ -37,6 +38,7 @@ const Intro = () => {
                     alt="intro_image"
                 />
             </Col>
+            <Footer className={'absolute left-32 bottom-5'}/>
         </Grid>
     );
 };

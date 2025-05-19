@@ -1,6 +1,5 @@
 import React from 'react';
 import MusicPlayer from './MusicPlayer';
-import Grid from './GridLayout/Grid';
 import Row from './GridLayout/Row';
 import Col from './GridLayout/Col';
 import Frame from './Frame';

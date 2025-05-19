@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import MusicPlayer from './MusicPlayer';
 
 function Header() {
   const navigate = useNavigate();
@@ -58,6 +59,13 @@ function Header() {
             {tab.label}
           </div>
         ))}
+
+        <MusicPlayer
+          className="mx-3 scale-90"
+          src={'https://apiboxfiles.erweima.ai/MTZiNWEzMTktMmNiYS00MjE5LWEzODktMWU2OWMxMTg5OTYw.mp3'}
+          showProgressbar={false}
+        />
+
       </div>
     </div>
   );
