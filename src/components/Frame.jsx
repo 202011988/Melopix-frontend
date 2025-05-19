@@ -1,9 +1,9 @@
 import React from 'react';
 import frameImage from '../assets/frame.png'; // 프레임 이미지 import (경로에 맞춰 수정)
 
-function Frame({ imageUrl }) {
+function Frame({ imageUrl, className }) {
   return (
-    <div style={frameContainerStyle}>
+    <div style={frameContainerStyle} className={className}>
       <img src={imageUrl} alt="액자 이미지" style={imageStyle} />
       <img src={frameImage} alt="액자 프레임" style={frameStyle} />
     </div>

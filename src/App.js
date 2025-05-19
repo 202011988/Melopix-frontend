@@ -12,18 +12,19 @@ import Upload from './pages/Upload';
 import Loading from './components/Loading';
 import Result from './pages/Result';
 import Header from './components/Header';
+import ComponentTest from './pages/ComponentTest';
 
 function App() {
-
   const backgroundImage = {
     backgroundImage: `url(${background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    backgroundAttachment: 'fixed',  // ✅ 스크롤 시 배경 고정
     width: '100vw',
-    height: '100vh',
-  }
+    minHeight: '100vh',
+    overflowX: 'hidden'
+  };
 
-  
   return (
     <div 
       className="App" 
@@ -32,19 +33,16 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          
-          <Route path="/" element={<Home />} />          {/*홈*/}
-          <Route path="/intro" element={<Intro />} />     {/*소개글*/}
-          <Route path="/manual" element={<Manual />} />    {/*사용 방법*/}
-
-          <Route path="/gallery" element={<Gallery />} />        {/*나만의 사진*/}
-          <Route path="/login" element={<Login />} />     {/*로그인*/}
-          <Route path="/signup" element={<Signup />} />    {/*회원가입*/}
-
-          <Route path="/upload" element={<Upload />} />    {/*파일 업로드*/}
-          <Route path="/loading" element={<Loading/>} />   {/*로딩*/}
-          <Route path="/result" element={<Result />} />    {/*결과*/}
-          
+          <Route path="/" element={<Home />} />
+          <Route path="/intro" element={<Intro />} />
+          <Route path="/manual" element={<Manual />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/loading" element={<Loading/>} />
+          <Route path="/result" element={<Result />} />
+          <Route path="/test" element={<ComponentTest />} />
         </Routes>
       </Router>
     </div>
