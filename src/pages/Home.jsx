@@ -69,6 +69,7 @@ const Home = () => {
       <MusicPlayer
         className="absolute bottom-3 left-32 z-20 w-[15%]"
         src={'https://apiboxfiles.erweima.ai/MTZiNWEzMTktMmNiYS00MjE5LWEzODktMWU2OWMxMTg5OTYw.mp3'}
+        showProgressbar={false}
       />
     </div>
   );

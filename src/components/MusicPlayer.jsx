@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Play, Pause } from "lucide-react";
 
-const MusicPlayer = ({ src , className = '' }) => {
+const MusicPlayer = ({ src , className = '', showProgressbar = true }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -55,6 +55,7 @@ const MusicPlayer = ({ src , className = '' }) => {
         )}
       </button>
 
+    { showProgressbar &&
       <input
         type="range"
         min="0"
@@ -62,7 +63,9 @@ const MusicPlayer = ({ src , className = '' }) => {
         value={progress}
         onChange={handleProgressChange}
         className="w-full h-1 bg-[#61605f] accent-[#61605f]"
-      />
+      />        
+    }
+
 
       <audio
         ref={audioRef}
