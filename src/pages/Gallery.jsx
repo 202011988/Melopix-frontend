@@ -6,14 +6,14 @@ import Col from "../components/GridLayout/Col";
 const Gallery = () => {
   return (
     <div
-        className=" my-8 mx-20 rounded-2xl mx-auto"
+        className=" my-8 w-[85%] rounded-2xl mx-auto"
         style={{
             backgroundImage: `url(${bgImage})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
         }}
     >
-        <Row className="justify-center py-20 gap-10">
+        <Row className="justify-between p-20">
             <Col className="scale-85 items-center">
                 <GalleryCard
                     imageUrl={require('../assets/SampleImages/Image1.jpg')} 
@@ -51,7 +51,7 @@ const Gallery = () => {
                 />
             </Col>
         </Row>
-        <Row className="justify-center pb-20 gap-10">
+        <Row className="justify-between pb-20 px-20">
             <Col className="scale-85 items-center">
                 <GalleryCard
                     imageUrl={require('../assets/SampleImages/Image5.jpg')} 
