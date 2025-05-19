@@ -6,7 +6,7 @@ import Col from "../components/GridLayout/Col";
 const Gallery = () => {
   return (
     <div
-        className=" my-8 w-[85%] rounded-2xl mx-auto"
+        className=" my-8 mx-20 rounded-2xl mx-auto"
         style={{
             backgroundImage: `url(${bgImage})`,
             backgroundSize: "cover",
