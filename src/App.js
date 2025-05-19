@@ -19,8 +19,8 @@ function App() {
     backgroundImage: `url(${background})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundAttachment: 'fixed',  // ✅ 스크롤 시 배경 고정
-    width: '100vw',
+    backgroundAttachment: 'fixed',
+    maxwidth: '100vw',
     minHeight: '100vh',
     overflowX: 'hidden'
   };

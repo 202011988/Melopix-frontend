@@ -6,6 +6,7 @@ import Row from "../components/GridLayout/Row";
 import HahmletHeading from "../components/HahmletHeading";
 import SDGothicBody from "../components/SDGothicBody";
 import StartButton from "../components/StartButton";
+import MusicPlayer from "../components/MusicPlayer";
 
 const Home = () => {
 
@@ -64,6 +65,11 @@ const Home = () => {
       <div className="absolute bottom-10  w-full z-0">
         <FrameSlideshow images={imageSources} />
       </div>
+
+      <MusicPlayer
+        className="absolute bottom-3 left-32 z-20 w-[15%]"
+        src={'https://apiboxfiles.erweima.ai/MTZiNWEzMTktMmNiYS00MjE5LWEzODktMWU2OWMxMTg5OTYw.mp3'}
+      />
     </div>
   );
 };
