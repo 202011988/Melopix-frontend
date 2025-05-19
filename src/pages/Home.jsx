@@ -6,7 +6,6 @@ import Row from "../components/GridLayout/Row";
 import HahmletHeading from "../components/HahmletHeading";
 import SDGothicBody from "../components/SDGothicBody";
 import StartButton from "../components/StartButton";
-import MusicPlayer from "../components/MusicPlayer";
 
 const Home = () => {
 
