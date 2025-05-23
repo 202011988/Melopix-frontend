@@ -26,17 +26,17 @@ const Home = () => {
     <div
       className="relative overflow-hidden"
       style={{
-        height: `calc(100vh - ${116}px)`,
+        height: `calc(100vh - ${136}px)`,
       }}
       >
       {/* 좌측 그라데이션 */}
-      <div className="absolute left-0 top-0 h-full w-[65%] z-10 pointer-events-none bg-gradient-to-r from-black/40 to-transparent" />
+      <div className="absolute left-0 top-0 h-full w-[45%] z-10 pointer-events-none bg-gradient-to-r from-[#F3EFEC] to-transparent" />
 
       {/* 우측 그라데이션 */}
-      <div className="absolute right-0 top-0 h-full w-[25%] z-10 pointer-events-none bg-gradient-to-l from-black/40 to-transparent" />
+      <div className="absolute right-0 top-0 h-full w-[10%] z-10 pointer-events-none bg-gradient-to-l from-[#F3EFEC] to-transparent" />
 
       {/* 상단 그라데이션 */}
-      <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-white to-transparent" />
+      {/* <div className="absolute top-0 left-0 w-full h-10 bg-gradient-to-b from-white to-transparent" /> */}
   
 
       <Grid className="px-32 pt-20 relative">
@@ -47,21 +47,22 @@ const Home = () => {
             </HahmletHeading>
           </Row>
           <Row>
-            <SDGothicBody className="z-20 mb-5">
-              잊어버린 당신의 사진첩 속 기억 한 조각을 가져오세요<br />
-              눈을 감고 시간을 되감아봅시다.<br />
+            <SDGothicBody className="z-20 mb-8">
+              AI가 사진 속 소중한 순간을 음악으로 재해석합니다.<br />
+              사진 한 장만 업로드하면, 그 기억을 담은 나만의 멜로디가 탄생합니다.<br />
+              이제, 당신의 이야기를 노래로 들어보세요.<br />
             </SDGothicBody>
           </Row>
           <Row>
             <StartButton 
-              className="z-20 relative mt-10"
+              className="z-20 relative mt-5"
               onClick={() => navigate('./upload')}
             />
           </Row>
         </Col>
       </Grid>
 
-      <div className="absolute bottom-10  w-full z-0">
+      <div className="absolute bottom-20  w-full z-0">
         <FrameSlideshow images={imageSources} />
       </div>
 

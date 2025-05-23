@@ -1,7 +1,15 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Play, Pause } from "lucide-react";
+import homePlay from '../assets/PlayerIcons/home_play.png'
+import homePause from '../assets/PlayerIcons/home_pause.png'
+import defaultPlay from '../assets/PlayerIcons/default_play.png'
+import defaultPause from '../assets/PlayerIcons/default_pause.png'
 
-const MusicPlayer = ({ src , className = '', showProgressbar = true }) => {
+const MusicPlayer = ({
+  src,
+  className = "",
+  showProgressbar = true,
+  iconMode = "gallery",
+}) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -36,36 +44,40 @@ const MusicPlayer = ({ src , className = '', showProgressbar = true }) => {
 
   useEffect(() => {
     const audio = audioRef.current;
-    audio.addEventListener("ended", () => setIsPlaying(false));
+    const handleEnded = () => setIsPlaying(false);
+    audio.addEventListener("ended", handleEnded);
     return () => {
-      audio.removeEventListener("ended", () => setIsPlaying(false));
+      audio.removeEventListener("ended", handleEnded);
     };
   }, []);
+
+  const getIconSrc = () => {
+    if (showProgressbar) {
+      return isPlaying ? defaultPause : defaultPlay;
+    } else {
+      return isPlaying ? homePause : homePlay;
+    }
+  };  
 
   return (
     <div className={`flex items-center gap-6 max-w-md ${className}`}>
       <button
         onClick={togglePlay}
-        className="rounded-full hover:bg-gray-200 transition"
+        className="rounded-full hover:bg-gray-200 transition w-10 h-10 flex items-center justify-center"
       >
-        {isPlaying ? (
-        <Pause className="w-6 h-6 text-[#61605f]" strokeWidth={3} />
-        ) : (
-        <Play className="w-6 h-6 text-[#61605f]" strokeWidth={3} />
-        )}
+        <img src={getIconSrc()} alt="Play/Pause" className="w-6 h-6" />
       </button>
 
-    { showProgressbar &&
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={progress}
-        onChange={handleProgressChange}
-        className="w-full h-1 bg-[#61605f] accent-[#61605f]"
-      />        
-    }
-
+      {showProgressbar && (
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={progress}
+          onChange={handleProgressChange}
+          className="w-full h-1 bg-[#61605f] accent-[#61605f]"
+        />
+      )}
 
       <audio
         ref={audioRef}

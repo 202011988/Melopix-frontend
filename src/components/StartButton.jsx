@@ -5,9 +5,11 @@ const StartButton = ({ onClick, className = '' }) => {
   return (
     <button
       onClick={onClick}
-      className={`start-button font-[AppleSDGothicNeo] font-bold px-7 py-1.5 rounded-md transition-all duration-200 ${className}`}
+      className={`relative px-4 py-2 rounded-md text-[#A57B3E] font-medium shadow-md hover:shadow-[0_6px_14px_rgba(241,189,154,0.5)] transition-shadow duration-300 overflow-hidden ${className}`}
     >
-      시작하기
+      <span className="absolute inset-0 bg-[#F1C798] z-0" />
+      <span className="absolute inset-0 bg-gradient-to-r from-[#B4B4B401] to-[#F0F0EF75] z-0" />
+      <span className="relative z-10 mx-4">시작하기</span>
     </button>
   );
 };

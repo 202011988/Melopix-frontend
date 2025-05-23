@@ -18,7 +18,7 @@ const frameContainerStyle = {
 
 const imageStyle = {
   position: 'absolute',
-  top: '32px',
+  top: '27px',
   left: '28px',
   width: '83%',
   height: '85%',

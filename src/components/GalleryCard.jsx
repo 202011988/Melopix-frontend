@@ -9,7 +9,7 @@ const GalleryCard = ({ className = '', musicUrl, imageUrl, name, date, descripti
     <Row  className = {`max-w-xs  ${className}`} style={{ maxWidth: '100px' }}>
         <Col className=''>
             <Frame imageUrl={imageUrl} className='mx-auto' />
-            <MusicPlayer className={'mx-7 mb-5'} src={musicUrl} />
+            <MusicPlayer className={'ms-5 me-7 my-5'} src={musicUrl} />
             <Col className='mx-7'>
                 <h3 className={` mb-2 font-sans font-bold text-left text-xl ${className}`}>
                     {name}

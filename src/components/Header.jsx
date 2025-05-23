@@ -21,7 +21,7 @@ function Header() {
   };
 
   const logoStyle = {
-    height: '40px',
+    height: '60px',
     cursor: 'pointer',
   };
 
@@ -37,7 +37,7 @@ function Header() {
     padding: '8px 20px',
     borderRadius: '20px',
     backgroundColor: location.pathname === path ? 'rgba(0,0,0,0.08)' : 'transparent',
-    color: location.pathname === path ? '#b4652f' : '#333',
+    color: location.pathname === path ? '#b4652f' : '#000',
     fontWeight: 'bold',
     cursor: 'pointer',
     transition: 'all 0.2s ease-in-out',
