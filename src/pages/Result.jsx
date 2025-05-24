@@ -23,17 +23,17 @@ const Result = () => {
       formData.append('file', file);
 
       try {
-        const photoRes = await axios.post('http://localhost:8080/api/phototag', formData);
+        const photoRes = await axios.post('/api/phototag', formData);
         const description = photoRes.data.description;
 
-        const sunoRes = await axios.post('http://localhost:8080/api/suno', null, {
+        const sunoRes = await axios.post('/api/suno', null, {
           params: { description }
         });
 
         const taskId = sunoRes.data.data.taskId;
         taskIdRef.current = taskId;
 
-        const eventSource = new EventSource(`http://localhost:8080/api/stream/music?taskId=${taskId}`);
+        const eventSource = new EventSource(`/api/stream/music?taskId=${taskId}`);
 
         eventSource.addEventListener('music-result', (event) => {
           try {
