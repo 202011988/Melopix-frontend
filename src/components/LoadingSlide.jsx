@@ -25,22 +25,25 @@ const positions = [
 const patternHeight = 700;
 const itemCountPerSet = positions.length;
 const numSets = 6;
-
 const speed = 0.5;
 const totalScrollHeight = patternHeight * numSets;
 
-function getRandomImage() {
-  return allImages[Math.floor(Math.random() * allImages.length)];
-}
-
 function LoadingSlide() {
+  const imageCounter = useRef(0);
+
+  const getNextImage = () => {
+    const image = allImages[imageCounter.current % allImages.length];
+    imageCounter.current++;
+    return image;
+  };
+
   const [items, setItems] = useState(() => {
     const arr = [];
     for (let setIdx = 0; setIdx < numSets; setIdx++) {
       for (let posIdx = 0; posIdx < itemCountPerSet; posIdx++) {
         arr.push({
-          y: setIdx * patternHeight + posIdx * 140,
-          imageUrl: getRandomImage(),
+          y: setIdx * patternHeight + posIdx * 100, // 간격
+          imageUrl: getNextImage(),
           posIndex: posIdx,
         });
       }
@@ -56,11 +59,9 @@ function LoadingSlide() {
         return oldItems.map(({ y, imageUrl, posIndex }) => {
           let newY = y - speed;
 
-          // 화면 위로 완전히 올라가면 다시 아래로 이동
           if (newY < -500) {
-            // +totalScrollHeight 로 위치를 연속되게 이어줌
-            newY = newY + totalScrollHeight;
-            return { y: newY, imageUrl: getRandomImage(), posIndex };
+            newY += totalScrollHeight;
+            return { y: newY, imageUrl: getNextImage(), posIndex };
           }
 
           return { y: newY, imageUrl, posIndex };
@@ -79,9 +80,9 @@ function LoadingSlide() {
     <div className="relative h-full overflow-hidden">
       {items.map(({ y, imageUrl, posIndex }, idx) => (
         <div
-        key={idx}
-        className={`absolute ${positions[posIndex]} scale-90`}
-        style={{ top: y, width: 300, height: 400 }}
+          key={idx}
+          className={`absolute ${positions[posIndex]} scale-90`}
+          style={{ top: y, width: 300, height: 400 }}
         >
           <Frame imageUrl={imageUrl} blur={20} />
         </div>

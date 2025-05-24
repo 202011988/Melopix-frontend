@@ -9,7 +9,7 @@ import LoadingSlide from "./LoadingSlide";
 const Loading = () => {
   const navigate = useNavigate();
 
-  const calculatedHeight = "calc(100vh - 136px)";
+  const calculatedHeight = "calc(100vh - 124px)";
 
   return (
     <div className="relative w-screen overflow-hidden" style={{ height: calculatedHeight }}>
