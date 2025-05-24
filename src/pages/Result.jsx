@@ -10,13 +10,16 @@ const Result = () => {
 
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
-  const taskIdRef = useRef(null); // taskId 추적용 ref
+  const taskIdRef = useRef(null);
 
   useEffect(() => {
     if (!file) {
+      alert('파일이 없습니다.');
       navigate('/');
       return;
     }
+
+    console.log('업로드할 파일:', file);
 
     const upload = async () => {
       const formData = new FormData();
@@ -24,11 +27,15 @@ const Result = () => {
 
       try {
         const photoRes = await axios.post('/api/phototag', formData);
+        console.log('phototag 응답:', photoRes.data);
+
         const description = photoRes.data.description;
 
+        // 필요하면 POST 바디로 보내는게 맞는지 확인하세요
         const sunoRes = await axios.post('/api/suno', null, {
           params: { description }
         });
+        console.log('suno 응답:', sunoRes.data);
 
         const taskId = sunoRes.data.data.taskId;
         taskIdRef.current = taskId;
@@ -59,7 +66,10 @@ const Result = () => {
         };
 
       } catch (err) {
-        console.error(err);
+        console.error('upload 에러:', err);
+        if (err.response) {
+          console.error('서버 응답:', err.response.data);
+        }
         alert('분석 또는 생성 실패');
         setLoading(false);
       }
