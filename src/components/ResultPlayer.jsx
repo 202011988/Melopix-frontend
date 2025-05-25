@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import playerFrame from '../assets/Result/Albumcover.png';
 import speakerImage from '../assets/Result/Speaker.png';
 import playIcon from '../assets/Result/result_play.png';
@@ -8,6 +8,7 @@ import SDGothicBody from './SDGothicBody';
 const ResultPlayer = ({ description, musicSrc, imageSrc }) => {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioUrl, setAudioUrl] = useState(null);
 
   const toggleAudio = () => {
     if (!audioRef.current) return;
@@ -21,6 +22,33 @@ const ResultPlayer = ({ description, musicSrc, imageSrc }) => {
 
   const imageUrl =
     imageSrc instanceof File ? URL.createObjectURL(imageSrc) : imageSrc;
+
+  // musicSrc가 바뀔 때마다 fetch해서 blob으로 만들기
+  useEffect(() => {
+    if (!musicSrc) return;
+
+    const fetchAudio = async () => {
+      try {
+        const response = await fetch(musicSrc);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        setAudioUrl(blobUrl);
+      } catch (err) {
+        console.error('오디오 로딩 실패:', err);
+      }
+    };
+
+    fetchAudio();
+  }, [musicSrc]);
+
+  // audioUrl이 바뀌거나 컴포넌트 언마운트 될 때 이전 blobUrl 정리
+  useEffect(() => {
+    return () => {
+      if (audioUrl) {
+        URL.revokeObjectURL(audioUrl);
+      }
+    };
+  }, [audioUrl]);
 
   return (
     <>
@@ -69,7 +97,6 @@ const ResultPlayer = ({ description, musicSrc, imageSrc }) => {
               className="absolute top-1/2 left-1/2 w-full h-full -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none"
             />
 
-            {/* 재생/일시정지 버튼 - 이미지로 */}
             <div className="absolute top-[80%] left-[85%] z-20 transform -translate-x-1/2 -translate-y-1/2">
               <button onClick={toggleAudio} className="focus:outline-none">
                 <img
@@ -89,10 +116,10 @@ const ResultPlayer = ({ description, musicSrc, imageSrc }) => {
         </div>
 
         <SDGothicBody className="my-10 text-center px-4 z-30">
-            {description}
+          {description}
         </SDGothicBody>
 
-        <audio ref={audioRef} src={musicSrc} />
+        <audio ref={audioRef} src={audioUrl} />
       </div>
     </>
   );

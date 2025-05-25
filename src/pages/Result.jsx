@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { motion, AnimatePresence } from 'framer-motion';
 import Loading from '../components/Loading';
 import bgImage from "../assets/gallery_bg.png";
 import Col from "../components/GridLayout/Col";
@@ -85,10 +86,7 @@ const Result = () => {
     upload();
   }, [file, navigate]);
 
-  if (loading) return <Loading />;
-  if (!response?.data?.data) return null;
-
-  const item = response.data.data[0];
+  const item = response?.data?.data?.[0];
 
   return (
     <div className="relative w-screen overflow-hidden" style={{ height: calculatedHeight }}>
@@ -114,14 +112,35 @@ const Result = () => {
       >
         {/* 중앙 정렬된 콘텐츠 */}
         <Col className="flex justify-center items-center h-full px-32">
-          {loading && <Loading />}
-          {item && (
-            <ResultPlayer
-              description={description}
-              musicSrc={item.source_stream_audio_url}
-              imageSrc={file}
-            />
-          )}
+          <AnimatePresence mode="wait">
+            {loading && (
+              <motion.div
+                key="loading"
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -40 }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
+              >
+                <Loading />
+              </motion.div>
+            )}
+
+            {!loading && item && (
+              <motion.div
+                key="result"
+                initial={{ opacity: 0, y: 60 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 1.4, ease: "easeInOut" }}
+              >
+                <ResultPlayer
+                  description={description}
+                  musicSrc={item.source_stream_audio_url}
+                  imageSrc={file}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </Col>
       </div>
     </div>
