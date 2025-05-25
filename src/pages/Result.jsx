@@ -2,6 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Loading from '../components/Loading';
+import bgImage from "../assets/gallery_bg.png";
+import Col from "../components/GridLayout/Col";
+import ResultSlide from "../components/ResultSlide";
+import ResultPlayer from '../components/ResultPlayer';
 
 const Result = () => {
   const location = useLocation();
@@ -10,7 +14,10 @@ const Result = () => {
 
   const [loading, setLoading] = useState(true);
   const [response, setResponse] = useState(null);
+  const [description, setDescription] = useState('');
   const taskIdRef = useRef(null);
+
+  const calculatedHeight = "calc(100vh - 124px)";
 
   useEffect(() => {
     if (!file) {
@@ -29,11 +36,11 @@ const Result = () => {
         const photoRes = await axios.post('/api/phototag', formData);
         console.log('phototag 응답:', photoRes.data);
 
-        const description = photoRes.data.description;
+        const photoDescription = photoRes.data.description;
+        setDescription(photoDescription);
 
-        // 필요하면 POST 바디로 보내는게 맞는지 확인하세요
         const sunoRes = await axios.post('/api/suno', null, {
-          params: { description }
+          params: { description: photoDescription }
         });
         console.log('suno 응답:', sunoRes.data);
 
@@ -81,27 +88,42 @@ const Result = () => {
   if (loading) return <Loading />;
   if (!response?.data?.data) return null;
 
+  const item = response.data.data[0];
+
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>음악 생성 결과</h2>
-      {response.data.data.map((item, idx) => (
-        <div key={idx} style={{ marginBottom: '2rem' }}>
-          <h3>🎵 {item.title}</h3>
-          <p>🧠 태그: {item.tags}</p>
-          <img
-            src={item.image_url || item.source_image_url}
-            alt={item.title}
-            style={{ width: '300px', borderRadius: '12px', marginBottom: '1rem' }}
-          />
-          <audio
-            controls
-            src={item.stream_audio_url || item.source_stream_audio_url}
-            style={{ width: '100%' }}
-          >
-            브라우저가 오디오 태그를 지원하지 않습니다.
-          </audio>
+    <div className="relative w-screen overflow-hidden" style={{ height: calculatedHeight }}>
+      {/* 움직이는 프레임 배경 */}
+      <div
+        className="absolute top-0 left-0 w-full z-0 flex justify-center"
+        style={{ height: calculatedHeight }}
+      >
+        <div className="w-[calc(100%-32rem)] pt-10">
+          <ResultSlide />
         </div>
-      ))}
+      </div>
+
+      {/* 배경 이미지 + 콘텐츠 */}
+      <div
+        className="relative mx-32 mt-10 rounded-3xl overflow-hidden shadow-xl z-10"
+        style={{
+          height: calculatedHeight,
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* 중앙 정렬된 콘텐츠 */}
+        <Col className="flex justify-center items-center h-full px-32">
+          {loading && <Loading />}
+          {item && (
+            <ResultPlayer
+              description={description}
+              musicSrc={item.source_stream_audio_url}
+              imageSrc={file}
+            />
+          )}
+        </Col>
+      </div>
     </div>
   );
 };

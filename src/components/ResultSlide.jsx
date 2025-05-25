@@ -31,7 +31,7 @@ const numSets = 7; // 총 세트 개수 (위치 * 세트 = 총 아이템 개수)
 const totalScrollHeight = numSets * itemsPerSet * itemSpacing;
 const speed = 0.8;
 
-function LoadingSlide() {
+function ResultSlide() {
   const imageCounter = useRef(0);
 
   // 순서대로 이미지를 반환
@@ -97,4 +97,4 @@ function LoadingSlide() {
   );
 }
 
-export default LoadingSlide;
+export default ResultSlide;

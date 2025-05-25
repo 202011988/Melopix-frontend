@@ -13,6 +13,8 @@ const MusicPlayer = ({
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -29,6 +31,8 @@ const MusicPlayer = ({
   const handleTimeUpdate = () => {
     const audio = audioRef.current;
     if (audio && audio.duration) {
+      setCurrentTime(audio.currentTime);
+      setDuration(audio.duration);
       setProgress((audio.currentTime / audio.duration) * 100);
     }
   };
@@ -37,7 +41,9 @@ const MusicPlayer = ({
     const audio = audioRef.current;
     const newProgress = parseFloat(e.target.value);
     if (audio && audio.duration) {
-      audio.currentTime = (newProgress / 100) * audio.duration;
+      const newTime = (newProgress / 100) * audio.duration;
+      audio.currentTime = newTime;
+      setCurrentTime(newTime);
       setProgress(newProgress);
     }
   };
@@ -57,7 +63,17 @@ const MusicPlayer = ({
     } else {
       return isPlaying ? homePause : homePlay;
     }
-  };  
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
+  const remainingTime = duration - currentTime;
 
   return (
     <div className={`flex items-center gap-6 max-w-md ${className}`}>
@@ -69,14 +85,19 @@ const MusicPlayer = ({
       </button>
 
       {showProgressbar && (
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={progress}
-          onChange={handleProgressChange}
-          className="w-full h-1 bg-[#61605f] accent-[#61605f]"
-        />
+        <div className="flex items-center gap-2 w-full">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={progress}
+            onChange={handleProgressChange}
+            className="w-full h-1 bg-[#61605f] accent-[#61605f]"
+          />
+          <span className="font-sans font-normal text-sm text-[#61605f] whitespace-nowrap min-w-[48px] text-right">
+            -{formatTime(remainingTime)}
+          </span>
+        </div>
       )}
 
       <audio
