@@ -19,7 +19,7 @@ const ComponentTest = () => {
   const file = sampleImage;
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5000);
+    const timer = setTimeout(() => setLoading(false), 50000);
     return () => clearTimeout(timer);
   }, []);
 
