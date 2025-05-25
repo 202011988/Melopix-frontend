@@ -1,28 +1,31 @@
 import React from 'react';
 import MusicPlayer from './MusicPlayer';
-import Row from './GridLayout/Row';
-import Col from './GridLayout/Col';
 import Frame from './Frame';
 
-const GalleryCard = ({ className = '', musicUrl, imageUrl, name, date, description}) => {
+const GalleryCard = ({
+  className = '',
+  musicUrl,
+  imageUrl,
+  name,
+  date,
+  description,
+  style = {},
+}) => {
   return (
-    <Row  className = {`max-w-xs  ${className}`} style={{ maxWidth: '100px' }}>
-        <Col className=''>
-            <Frame imageUrl={imageUrl} className='mx-auto' />
-            <MusicPlayer className={'ms-5 me-7 my-5'} src={musicUrl} />
-            <Col className='mx-7'>
-                <h3 className={` mb-2 font-sans font-bold text-left text-xl ${className}`}>
-                    {name}
-                </h3>
-                <p className={`mb-2 font-sans font-normal text-left text-[#61605f] ${className}`}>
-                    {date}
-                </p>
-                <p className={`font-sans font-normal text-left ${className}`}>
-                    {description}
-                </p>
-            </Col>
-        </Col>
-    </Row>
+    <div
+      className={`w-full ${className}`}
+      style={{ maxWidth: '320px', ...style }}
+    >
+      <Frame imageUrl={imageUrl} className="mx-auto" />
+      <MusicPlayer className="ms-5 me-7 my-5" src={musicUrl} />
+      <div className="mx-7">
+        <h3 className="mb-2 font-sans font-bold text-left text-xl">{name}</h3>
+        <p className="mb-2 font-sans font-normal text-left text-[#61605f]">
+          {date}
+        </p>
+        <p className="font-sans font-normal text-left">{description}</p>
+      </div>
+    </div>
   );
 };
 

@@ -62,8 +62,11 @@ const Home = () => {
         </Col>
       </Grid>
 
-      <div className="absolute bottom-20  w-full z-0">
-        <FrameSlideshow images={imageSources} />
+      <div className="absolute bottom-16 w-full z-0">
+        <FrameSlideshow
+          images={imageSources}
+          className="h-[600px] sm:h-[600px] md:h-[600px] lg:h-[600px]" // ✅ 반응형 슬라이드 높이
+        />
       </div>
 
     </div>

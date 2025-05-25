@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Frame from './Frame';
 
-function FrameSlideshow({ images , className}) {
+function FrameSlideshow({ images, className }) {
   const containerRef = useRef(null);
   const frameRef = useRef(null);
   const animationFrameId = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [frameWidth, setFrameWidth] = useState(0);
-  const [frameMargin, setFrameMargin] = useState(50); // 기본 마진
-  const speed = 0.5; // 1px per frame
+  const [frameMargin, setFrameMargin] = useState(50);
+  const speed = 0.5; // px per frame
 
   useEffect(() => {
     if (frameRef.current) {
@@ -46,7 +46,11 @@ function FrameSlideshow({ images , className}) {
         {[...images, ...images].map((imageUrl, index) => (
           <div
             key={index}
-            style={{ marginRight: `${frameMargin}px` }}
+            style={{
+              width: 'min(30vw, 320px)', // 반응형 너비
+              marginRight: `${frameMargin}px`,
+              flexShrink: 0, // 줄어들지 않게
+            }}
             ref={index === 0 ? frameRef : null}
           >
             <Frame imageUrl={imageUrl} />
@@ -58,9 +62,6 @@ function FrameSlideshow({ images , className}) {
 }
 
 const slidingBackgroundContainerStyle = {
-//   position: 'absolute',
-//   top: 0,
-//   left: 0,
   width: '100%',
   height: '100%',
   overflow: 'hidden',
