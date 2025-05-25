@@ -17,6 +17,7 @@ const Result = () => {
   const [audioUrl, setAudioUrl] = useState(null);
   const [description, setDescription] = useState('');
   const taskIdRef = useRef(null);
+  const eventSourceRef = useRef(null);
 
   const calculatedHeight = "calc(100vh - 124px)";
 
@@ -45,8 +46,9 @@ const Result = () => {
         const taskId = sunoRes.data.data.taskId;
         taskIdRef.current = taskId;
 
-        // 3. SSE 설정
+        // 3. SSE 연결
         const eventSource = new EventSource(`/api/stream/music?taskId=${taskId}`);
+        eventSourceRef.current = eventSource;
 
         eventSource.addEventListener('music-result', (event) => {
           try {
@@ -55,12 +57,16 @@ const Result = () => {
             const callbackType = data?.data?.callbackType;
             const audioUrlFromCallback = data?.data?.data?.[0]?.audio_url;
 
-            if (callbackTaskId === taskIdRef.current &&
-                (callbackType === 'first' || callbackType === 'complete') &&
-                audioUrlFromCallback) {
-              setAudioUrl(audioUrlFromCallback);
-              setLoading(false);
-              eventSource.close();
+            if (callbackTaskId === taskIdRef.current) {
+              if ((callbackType === 'first' || callbackType === 'complete') && audioUrlFromCallback) {
+                setAudioUrl(audioUrlFromCallback);
+              }
+
+              if (callbackType === 'complete') {
+                setLoading(false);
+                eventSource.close();
+              }
+              // 필요하면 'first' 이벤트일 때 로딩 상태 업데이트나 UI 처리 가능
             } else {
               console.log('무시된 콜백:', callbackType, callbackTaskId);
             }
@@ -82,6 +88,13 @@ const Result = () => {
     };
 
     upload();
+
+    // 컴포넌트 언마운트 시 이벤트소스 닫기
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
+    };
   }, [file, navigate]);
 
   return (
