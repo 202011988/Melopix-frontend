@@ -1,5 +1,4 @@
 import React from 'react';
-import './StartButton.css';
 
 const StartButton = ({ onClick, className = '' }) => {
   return (
@@ -9,7 +8,7 @@ const StartButton = ({ onClick, className = '' }) => {
     >
       <span className="absolute inset-0 bg-[#F1C798] z-0" />
       <span className="absolute inset-0 bg-gradient-to-r from-[#B4B4B401] to-[#F0F0EF75] z-0" />
-      <span className="relative z-10 mx-4">시작하기</span>
+      <p className="relative z-10 font-bold mx-4">시작하기</p>
     </button>
   );
 };
