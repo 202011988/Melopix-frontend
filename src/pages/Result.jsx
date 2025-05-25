@@ -14,7 +14,7 @@ const Result = () => {
   const file = location.state?.file;
 
   const [loading, setLoading] = useState(true);
-  const [response, setResponse] = useState(null);
+  const [audioUrl, setAudioUrl] = useState(null);
   const [description, setDescription] = useState('');
   const taskIdRef = useRef(null);
 
@@ -27,40 +27,42 @@ const Result = () => {
       return;
     }
 
-    console.log('업로드할 파일:', file);
-
     const upload = async () => {
-      const formData = new FormData();
-      formData.append('file', file);
-
       try {
-        const photoRes = await axios.post('/api/phototag', formData);
-        console.log('phototag 응답:', photoRes.data);
+        // 1. 이미지 설명 생성
+        const formData = new FormData();
+        formData.append('file', file);
 
+        const photoRes = await axios.post('/api/phototag', formData);
         const photoDescription = photoRes.data.description;
         setDescription(photoDescription);
 
+        // 2. Suno API 요청
         const sunoRes = await axios.post('/api/suno', null, {
           params: { description: photoDescription }
         });
-        console.log('suno 응답:', sunoRes.data);
 
         const taskId = sunoRes.data.data.taskId;
         taskIdRef.current = taskId;
 
+        // 3. SSE 설정
         const eventSource = new EventSource(`/api/stream/music?taskId=${taskId}`);
 
         eventSource.addEventListener('music-result', (event) => {
           try {
             const data = JSON.parse(event.data);
             const callbackTaskId = data?.data?.task_id;
+            const callbackType = data?.data?.callbackType;
+            const audioUrlFromCallback = data?.data?.data?.[0]?.audio_url;
 
-            if (callbackTaskId === taskIdRef.current) {
-              setResponse(data);
+            if (callbackTaskId === taskIdRef.current &&
+                (callbackType === 'first' || callbackType === 'complete') &&
+                audioUrlFromCallback) {
+              setAudioUrl(audioUrlFromCallback);
               setLoading(false);
               eventSource.close();
             } else {
-              console.log('무시된 다른 taskId:', callbackTaskId);
+              console.log('무시된 콜백:', callbackType, callbackTaskId);
             }
           } catch (e) {
             console.error('SSE 파싱 에러:', e);
@@ -72,12 +74,8 @@ const Result = () => {
           eventSource.close();
           setLoading(false);
         };
-
       } catch (err) {
         console.error('upload 에러:', err);
-        if (err.response) {
-          console.error('서버 응답:', err.response.data);
-        }
         alert('분석 또는 생성 실패');
         setLoading(false);
       }
@@ -85,8 +83,6 @@ const Result = () => {
 
     upload();
   }, [file, navigate]);
-
-  const item = response?.data?.data?.[0];
 
   return (
     <div className="relative w-screen overflow-hidden" style={{ height: calculatedHeight }}>
@@ -125,7 +121,7 @@ const Result = () => {
               </motion.div>
             )}
 
-            {!loading && item && (
+            {!loading && audioUrl && (
               <motion.div
                 key="result"
                 initial={{ opacity: 0, y: 60 }}
@@ -135,7 +131,7 @@ const Result = () => {
               >
                 <ResultPlayer
                   description={description}
-                  musicSrc={item.source_stream_audio_url}
+                  musicSrc={audioUrl}
                   imageSrc={file}
                 />
               </motion.div>
